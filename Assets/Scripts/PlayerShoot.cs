@@ -4,12 +4,14 @@ using UnityEngine;
 
 public class PlayerShoot : MonoBehaviour
 {
+      public Camera camera;
       public Transform cameraPos;
 
       public ParticleSystem gunFire;
+      public GameObject impactSpark;
 
       public string weaponName = "Glock";
-      public float weaponDamage = 10f;
+      public int weaponDamage = 20;
       public float weaponRange = 100f;
 
       [SerializeField]
@@ -32,13 +34,23 @@ public class PlayerShoot : MonoBehaviour
 
       void WeaponShoot()
       {
+            gunFire.Stop();
             gunFire.Play();
 
             RaycastHit _hit;
             if(Physics.Raycast(cameraPos.position, cameraPos.forward, out _hit, weaponRange, mask))
             {
+                  GameObject impactGO = Instantiate(impactSpark, _hit.point, Quaternion.LookRotation(_hit.normal));
+                  Destroy(impactGO, 1f); // Destory impactSpark prefab after 1s
 
-                  Debug.Log("we hit" + _hit.collider.name);
+                  if(_hit.collider.tag == "Enemy")
+                  {
+                        EnemyHealth enemyHealth = _hit.collider.GetComponent<EnemyHealth>();
+                        if(enemyHealth != null)
+                        {
+                              enemyHealth.TakeDamage(weaponDamage);
+                        }
+                  }
             }
       }
 }
