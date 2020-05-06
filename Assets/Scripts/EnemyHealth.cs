@@ -7,6 +7,8 @@ public class EnemyHealth : MonoBehaviour
       public int startingHealth = 100;
       public int currentHealth;
 
+      public int test;
+
       CapsuleCollider capsuleCollider;
       bool isDead = false;
 
