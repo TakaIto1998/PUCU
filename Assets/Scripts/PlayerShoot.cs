@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerShoot : MonoBehaviour
 {
-      public Camera camera;
+      //public Camera camera;
       public Transform cameraPos;
 
       public ParticleSystem gunFire;
@@ -13,7 +13,9 @@ public class PlayerShoot : MonoBehaviour
       public string weaponName = "Glock";
       public int weaponDamage = 20;
       public float weaponRange = 100f;
+      public float timeBetweenBullets = 0.3f;
 
+      private float timer;
       [SerializeField]
       private LayerMask mask;
 
@@ -26,7 +28,9 @@ public class PlayerShoot : MonoBehaviour
       // Update is called once per frame
       void Update()
       {
-            if(Input.GetButtonDown("Fire1"))
+            timer += Time.deltaTime;
+
+            if(Input.GetButtonDown("Fire1") && timer >= timeBetweenBullets)
             {
                   WeaponShoot();
             }
@@ -34,6 +38,8 @@ public class PlayerShoot : MonoBehaviour
 
       void WeaponShoot()
       {
+            timer = 0f;
+
             gunFire.Stop();
             gunFire.Play();
 

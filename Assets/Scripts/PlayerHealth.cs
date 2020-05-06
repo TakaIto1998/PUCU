@@ -8,6 +8,9 @@ public class PlayerHealth : MonoBehaviour
       public int startingHealth = 100;
       public int currentHealth;
       public Slider healthSlider;
+      public Image damageImage;
+      public Color flashColor = new Color(1f, 0f, 0f, 0.2f);
+      public float flashTime = 5f;
       public PlayerMovement playerMovement;
 
       bool isDead = false;
@@ -24,7 +27,15 @@ public class PlayerHealth : MonoBehaviour
       // Update is called once per frame
       void Update()
       {
-
+            if(damaged)
+            {
+                  damageImage.color = flashColor;
+            }
+            else
+            {
+                  damageImage.color = Color.Lerp(damageImage.color, Color.clear, flashTime * Time.deltaTime);
+            }
+            damaged = false;
       }
 
       public void TakeDamage(int amount)
