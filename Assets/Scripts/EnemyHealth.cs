@@ -6,6 +6,7 @@ public class EnemyHealth : MonoBehaviour
 {
       public int startingHealth = 100;
       public int currentHealth;
+      public int scoreValue = 10;
 
       CapsuleCollider capsuleCollider;
       bool isDead = false;
@@ -40,6 +41,7 @@ public class EnemyHealth : MonoBehaviour
       {
             isDead = true;
 
+            ScoreManager.score += scoreValue;
             Destroy(gameObject);
       }
 }
