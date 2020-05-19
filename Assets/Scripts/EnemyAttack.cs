@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class EnemyAttack : MonoBehaviour
 {
@@ -45,13 +43,8 @@ public class EnemyAttack : MonoBehaviour
 
             if(timer >= timeBetweenAttacks && playerInRange)
             {
-                  Debug.Log("Attack");
+                  //Debug.Log("Attack");
                   Attack();
-            }
-
-            if(playerHealth.currentHealth <= 0)
-            {
-                  Debug.Log("Player is dead");
             }
       }
 

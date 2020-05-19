@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System;
 using UnityEngine;
 
 public class PlayerShoot : MonoBehaviour
@@ -17,12 +16,13 @@ public class PlayerShoot : MonoBehaviour
 
       private float timer;
       [SerializeField]
+      private string[] shootable_layers = new string[] { "Ground", "Enemy" };
       private LayerMask mask;
 
       // Start is called before the first frame update
       void Start()
       {
-        
+            mask = LayerMask.GetMask(shootable_layers);
       }
 
       // Update is called once per frame
@@ -49,7 +49,7 @@ public class PlayerShoot : MonoBehaviour
                   GameObject impactGO = Instantiate(impactSpark, _hit.point, Quaternion.LookRotation(_hit.normal));
                   Destroy(impactGO, 1f); // Destory impactSpark prefab after 1s
 
-                  if(_hit.collider.tag == "Enemy")
+                  if(_hit.collider.tag == "Enemy" || _hit.collider.tag == "Boss")
                   {
                         EnemyHealth enemyHealth = _hit.collider.GetComponent<EnemyHealth>();
                         if(enemyHealth != null)

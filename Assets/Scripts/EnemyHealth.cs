@@ -1,10 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class EnemyHealth : MonoBehaviour
 {
-      public int startingHealth = 100;
+      public StageManager stageManager;
+
       public int currentHealth;
       public int scoreValue = 10;
 
@@ -14,9 +13,20 @@ public class EnemyHealth : MonoBehaviour
       // Start is called before the first frame update
       void Start()
       {
+            GameObject ob_stageManager = GameObject.Find("StageManager");
+            stageManager = ob_stageManager.GetComponent<StageManager>();
+
             capsuleCollider = GetComponent<CapsuleCollider>();
 
-            currentHealth = startingHealth;
+            if (tag == "Enemy")
+            {
+                  currentHealth = stageManager.NormalEnemyHP(stageManager.currentStage);
+            }
+            else if (tag == "Boss")
+            {
+                  currentHealth = stageManager.BossHP(stageManager.currentStage);
+            }
+            
       }
 
       // Update is called once per frame

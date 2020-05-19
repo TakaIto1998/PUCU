@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class PlayerHealth : MonoBehaviour
@@ -13,7 +11,9 @@ public class PlayerHealth : MonoBehaviour
       public float flashTime = 5f;
       public PlayerMovement playerMovement;
 
-      bool isDead = false;
+      public StageManager stageManager;
+
+      public bool isDead = false;
       bool damaged = false;
 
       // Start is called before the first frame update
@@ -22,6 +22,9 @@ public class PlayerHealth : MonoBehaviour
             currentHealth = startingHealth;
 
             playerMovement = GetComponent<PlayerMovement>();
+
+            GameObject ob_stageManager = GameObject.Find("StageManager");
+            stageManager = ob_stageManager.GetComponent<StageManager>();
       }
 
       // Update is called once per frame
@@ -55,5 +58,7 @@ public class PlayerHealth : MonoBehaviour
             isDead = true;
 
             playerMovement.enabled = false;
+
+            stageManager.GameOver();
       }
 }
